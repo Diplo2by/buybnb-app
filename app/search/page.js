@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { formatPrice } from '../util/Script'
+import Image from 'next/image'
 
 const Globe = dynamic(() => import('react-globe.gl'), { ssr: false })
 
@@ -38,7 +39,7 @@ export default function SearchPage() {
 
             try {
                 let url = "http://localhost:8080/api/properties";
-                url = city ? url + `city=${city}` : url
+                url = city ? url + `?city=${city}` : url
                 const res = await fetch(
                     url
                 )
@@ -87,12 +88,18 @@ export default function SearchPage() {
         <div className="min-h-screen bg-gray-900 relative">
             <nav className="absolute top-0 w-full bg-black/30 backdrop-blur-sm border-b border-white/10 z-50">
                 <div className="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-                    <Link href="/" className="text-2xl font-bold text-white">
-                        BuyBnB
+                    <Link href="/" className="flex items-center mt-4">
+                        <Image
+                            src="/buybnb.webp"
+                            alt="BuyBnB"
+                            width={120}
+                            height={40}
+                            priority
+                        />
                     </Link>
 
                     <div className="flex space-x-4">
-                        <Link href="/properties" className="text-white hover:text-rose-400">
+                        <Link href="/search" className="text-white hover:text-rose-400">
                             List View
                         </Link>
                         <Link href="/" className="text-white hover:text-rose-400">
