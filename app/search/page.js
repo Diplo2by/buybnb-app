@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -9,7 +9,7 @@ import Image from 'next/image'
 
 const Globe = dynamic(() => import('react-globe.gl'), { ssr: false })
 
-export default function SearchPage() {
+function SearchPageContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const globeEl = useRef()
@@ -226,3 +226,17 @@ export default function SearchPage() {
         </div>
     )
 }
+
+const SearchPage = () => {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+                <div className="text-white text-xl">Loading...</div>
+            </div>
+        }>
+            <SearchPageContent />
+        </Suspense>
+    )
+}
+
+export default SearchPage
