@@ -12,7 +12,7 @@ export default function LandingPage() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search?location=${encodeURIComponent(searchQuery)}`);
+      router.push(`/search?city=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -21,8 +21,14 @@ export default function LandingPage() {
       <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-rose-500">BuyBnB</span>
+            <Link href="/" className="flex items-center mt-4">
+              <Image
+                src="/buybnb.webp"
+                alt="BuyBnB"
+                width={120}
+                height={40}
+                priority
+              />
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
@@ -259,7 +265,7 @@ export default function LandingPage() {
             ].map((city, index) => (
               <Link
                 key={index}
-                href={`/search?location=${city.name}`}
+                href={`/search?city=${city.name}`}
                 className="group relative h-64 rounded-2xl overflow-hidden cursor-pointer"
               >
                 {/* Background Image */}
