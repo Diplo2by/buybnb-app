@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import api from '@/app/lib/api';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
     const router = useRouter();
@@ -12,6 +14,7 @@ export default function LoginPage() {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const { login } = useAuth()
 
     const handleChange = (e) => {
         setFormData({
@@ -27,24 +30,18 @@ export default function LoginPage() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
+            const data = await api.login(formData);
+
+            login(data.token, {
+                username: data.username,
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);
-                router.push('/');
-            } else {
-                const errorData = await response.text();
-                setError(errorData || 'Invalid username or password');
-            }
+            router.push('/');
         } catch (err) {
-            setError('Something went wrong. Please try again.');
+            setError(err.message || 'Something went wrong. Please try again.');
         } finally {
             setLoading(false);
         }
