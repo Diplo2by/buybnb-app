@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata = {
   title: "BuyBnB",
   description: "What's stopping you from buying your 12th house?",
+  icons: {
+    icon: '/icon.webp',
+  },
 };
 
 export default function RootLayout({ children }) {
