@@ -1,5 +1,12 @@
+import { Figtree } from 'next/font/google';
 import AuthProvider from "./context/AuthContext";
 import "./globals.css";
+
+const figtree = Figtree({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-figtree',
+});
 
 export const metadata = {
   title: "BuyBnB",
@@ -12,9 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className=""
-      >
+      <body className={figtree.variable}>
         <AuthProvider>
           {children}
         </AuthProvider>
