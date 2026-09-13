@@ -11,3 +11,10 @@ export function formatPrice(price) {
 
     return `₹${price.toLocaleString('en-IN')}`;
 }
+
+export const PROPERTY_IMAGES = ['prop1.webp', 'prop2.webp', 'prop3.webp', 'prop4.webp']
+
+export function getRandomPropertyImage() {
+    const randomIndex = Math.floor(Math.random() * PROPERTY_IMAGES.length)
+    return `/properties/${PROPERTY_IMAGES[randomIndex]}`
+}
