@@ -38,7 +38,7 @@ function SearchPageContent() {
             setSelectedProperty(null)
 
             try {
-                let url = "http://localhost:8080/api/properties";
+                let url = `${process.env.NEXT_PUBLIC_API_URL}/properties`;
                 url = city ? url + `?city=${city}` : url
                 const res = await fetch(
                     url
@@ -170,10 +170,14 @@ function SearchPageContent() {
             {selectedProperty && (
                 <div className="absolute bottom-8 right-8 w-96 bg-white rounded-2xl shadow-2xl overflow-hidden">
                     <div className="relative h-48">
-                        <img
+                        <Image
                             src={selectedProperty.image}
                             alt={selectedProperty.name}
-                            className="h-48 w-full object-cover"
+                            fill
+                            sizes="384px"
+                            className="object-cover"
+                            loader={({ src }) => src}
+                            unoptimized
                         />
 
                         <button
