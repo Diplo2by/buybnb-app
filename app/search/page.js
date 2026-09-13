@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { formatPrice } from '../util/Script'
+import { formatPrice, getRandomPropertyImage } from '../util/Script'
 import Image from 'next/image'
 
 const Globe = dynamic(() => import('react-globe.gl'), { ssr: false })
@@ -58,7 +58,7 @@ function SearchPageContent() {
                     beds: p.numBedrooms,
                     baths: p.numBathrooms,
                     sqft: p.squareFeet,
-                    image: p.imageUrl
+                    image: getRandomPropertyImage()
                 }))
 
                 setProperties(mapped)
