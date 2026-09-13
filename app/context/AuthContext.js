@@ -10,12 +10,16 @@ const AuthProvider = ({ children }) => {
     const router = useRouter();
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
-        const userData = localStorage.getItem('user')
-        if (token && userData) {
-            setUser(JSON.parse(userData));
-        }
-        setLoading(false)
+        const restoreUser = setTimeout(() => {
+            const token = localStorage.getItem('token')
+            const userData = localStorage.getItem('user')
+            if (token && userData) {
+                setUser(JSON.parse(userData));
+            }
+            setLoading(false)
+        }, 0)
+
+        return () => clearTimeout(restoreUser)
     }, []);
 
     const login = (token, userData) => {
